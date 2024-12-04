@@ -1,27 +1,37 @@
 const mysql = require("mysql2");
 require("dotenv").config();
 
-// Connect to local database
-// const db = mysql.createConnection({
-//   host: process.env.DB_Host,
-//   database: process.env.DB_DATABASE,
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASSWORD,
-// });
+// Decide connection type based on an environment variable
+const isCloudDB = process.env.USE_CLOUD_DB === "true";
 
-//Connect to cloud database
-const db = mysql.createConnection(`mysql://
-                ${process.env.MYSQLUSER}:
-                ${process.env.MYSQL_ROOT_PASSWORD}@
-                ${process.env.RAILWAY_PRIVATE_DOMAIN}:3306/
-                ${process.env.MYSQL_DATABASE}`);
+// Create connection object dynamically
+const dbConfig = isCloudDB
+  ? {
+    // Cloud database configuration
+    host: process.env.RAILWAY_PRIVATE_DOMAIN,
+    user: process.env.MYSQLUSER,
+    password: process.env.MYSQL_ROOT_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
+    port: 3306, // MySQL default port
+  }
+  : {
+    // Local database configuration
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+  };
 
+// Create the database connection
+const db = mysql.createConnection(dbConfig);
+
+// Connect to the database
 db.connect((err) => {
   if (err) {
     console.error("Error connecting to the database:", err.message);
     return;
   }
-  console.log("Connected to MySQL database.");
+  console.log(`Connected to ${isCloudDB ? "cloud" : "local"} MySQL database.`);
 });
 
 module.exports = db;
