@@ -1,0 +1,63 @@
+/* -------------------------- Progress Bar ------------------------- */
+
+.progress-container {
+  width: 100%;
+  background-color: white;
+  border: 1px solid var(--light-gray);
+  border-radius: 4px;
+  height: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--light-accent);
+  width: 0%;
+  transition: width 0.25s;
+}
+
+/* -------------------------- Current Session ------------------------- */
+
+@media (max-width: 768px) {
+  .container.current-session {
+    max-width: none !important;
+    width: 100% !important;
+  }
+}
+
+/* -------------------------- Technician Chat ------------------------- */
+
+@media (max-width: 576px) {
+  .chat-box .toggle {
+    top: 124px !important;
+  }
+  .chat-box .send {
+    width: fit-content;
+    align-self: end;
+    padding: 0.4rem 1rem;
+  }
+}
+
+.w-300px {
+  width: 300px;
+}
+
+.w-54px {
+  width: 54px;
+}
+
+.chat-box {
+  flex: 1;
+  display: flex;
+  background-color: var(--light-background);
+}
+
+.chat-box .toggle {
+  transform: none !important;
+  padding: 10px;
+  margin: 8px;
+}
+
+.chat-box .send {
+  transform: none !important;
+}

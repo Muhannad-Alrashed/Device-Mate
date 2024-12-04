@@ -1,0 +1,39 @@
+/*----------------------- Homepage -------------------- */
+.hero {
+  padding: 100px 0;
+  background: linear-gradient(to bottom, white, hsl(160 50% 95% / 1));
+}
+
+/*----------------------- About -------------------- */
+.about p {
+  max-width: 600px;
+}
+
+/*----------------------- Blog & News -------------------- */
+.blog h3 {
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+/*----------------------- Support -------------------- */
+.support .info {
+  margin: 112px 0;
+}
+
+/*----------------------- Connect Device -------------------- */
+
+@media (max-width: 768px) {
+  .container.connect-device {
+    max-width: none !important;
+    width: 100% !important;
+  }
+}
+
+.color-gradient {
+  background: linear-gradient(
+    0deg,
+    transparent,
+    var(--light-background),
+    transparent
+  );
+}

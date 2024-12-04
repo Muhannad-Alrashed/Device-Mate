@@ -1,0 +1,135 @@
+/* ------------------------ Footer -----------------------*/
+
+@media (max-width: 768px) {
+  .footer {
+    display: flex !important;
+    flex-wrap: wrap;
+    width: 100vw !important;
+    text-align: center;
+  }
+  .footer div {
+    width: 100%;
+  }
+  .footer .logo {
+    height: 80px !important;
+    margin-bottom: 10px;
+  }
+  .footer .column {
+    width: 45%;
+    text-align: center;
+    margin: auto;
+  }
+  .footer .column:first-child {
+    width: 100%;
+    order: 2;
+  }
+  .footer img {
+    height: 100% !important;
+  }
+}
+@media (min-width: 1024px) {
+  .footer img {
+    height: 100% !important;
+  }
+}
+
+.footer img {
+  height: auto;
+}
+
+.footer-background {
+  background-color: var(--dark-background);
+}
+
+.footer-position {
+  position: sticky;
+  bottom: 0;
+}
+
+.footer {
+  padding: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(30% - 40px), 1fr));
+  gap: 20px;
+  color: white;
+  justify-items: center;
+}
+
+.footer .column {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.footer .logo {
+  height: 120px;
+}
+
+.footer .logo img {
+  margin: auto;
+}
+
+.footer a {
+  color: white;
+}
+
+.footer a:hover {
+  transform: translateX(4px);
+}
+
+/* ------------------------ Dashboard Footer -----------------------*/
+
+@media (max-width: 640px) {
+  .dashboard-footer {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .dashboard-footer .column {
+    order: -1;
+  }
+}
+
+.dashboard-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+  padding: 0 5%;
+  color: white;
+}
+
+.dashboard-footer .logo {
+  align-items: center;
+  justify-self: start;
+}
+.dashboard-footer .column {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.dashboard-footer p {
+  justify-self: end;
+  margin: 0;
+  text-wrap: nowrap;
+  font-size: 14px;
+  font-weight: 200;
+  text-align: end;
+}
+
+.dashboard-footer .logo img {
+  margin-top: 10px;
+  height: 30px;
+}
+
+.dashboard-footer a {
+  text-wrap: nowrap;
+  color: white;
+}
+
+.dashboard-footer a:hover {
+  transform: translateX(4px);
+}
