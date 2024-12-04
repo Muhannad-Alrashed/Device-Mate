@@ -62,7 +62,7 @@ const BlogNews = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {loading1 ? (
                 <Loading label="loading news" />
-              ) : (
+              ) : newsArticles.length > 0 ? (
                 newsArticles.map((article) => (
                   <div
                     key={article.item_id}
@@ -91,6 +91,8 @@ const BlogNews = () => {
                     </div>
                   </div>
                 ))
+              ) : (
+                <div>No News Found</div>
               )}
             </div>
           </section>
@@ -102,7 +104,7 @@ const BlogNews = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {loading2 ? (
                 <Loading label="loading blogs" />
-              ) : (
+              ) : blogPosts.length > 0 ? (
                 blogPosts.map((post) => (
                   <div
                     key={post.item_id}
@@ -131,6 +133,8 @@ const BlogNews = () => {
                     </div>
                   </div>
                 ))
+              ) : (
+                <div>No Blogs Found</div>
               )}
             </div>
           </section>
