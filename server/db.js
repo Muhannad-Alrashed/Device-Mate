@@ -6,14 +6,13 @@ const isCloudDB = process.env.USE_CLOUD_DB === "true";
 
 // Create connection object dynamically
 const dbConfig = isCloudDB
-  ? {
-    // Cloud database configuration
-    host: process.env.RAILWAY_PRIVATE_DOMAIN,
-    user: process.env.MYSQLUSER,
-    password: process.env.MYSQL_ROOT_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-    port: 3306, // MySQL default port
-  }
+  ?
+  // Cloud database configuration
+  `mysql://
+              ${process.env.MYSQLUSER}:
+              ${process.env.MYSQLPASSWORD}@
+              ${process.env.MYSQLHOST}:3306/
+              ${process.env.MYSQLDATABASE}`
   : {
     // Local database configuration
     host: process.env.DB_HOST,
