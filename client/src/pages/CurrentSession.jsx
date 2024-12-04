@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+import axios2 from "../axios2";
 import { AuthContext } from "../context/authContext.js";
 import { WebSocketContext } from "../context/webSocketContext";
 import { TransferContext } from "../context/transferContext";
@@ -297,7 +297,7 @@ const CurrentSession = () => {
 
   const saveFileToDB = async (metadata, id) => {
     try {
-      const response = await axios.post(`/server/files/save/${id}`, {
+      const response = await axios2.post(`/server/files/save/${id}`, {
         metadata,
         sessionInfo,
       });

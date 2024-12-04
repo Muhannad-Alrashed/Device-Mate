@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
-import axios from "axios";
+import axios2 from "../axios2";
 import { AuthContext } from "../context/authContext";
 import { WebSocketContext } from "../context/webSocketContext.js";
 import { TransferContext } from "../context/transferContext.js";
@@ -26,7 +26,7 @@ const DeleteAccount = () => {
     setIsDeleting(true);
     const userId = currentUser.user_id;
     try {
-      await axios.delete(`/server/profile/delete-account/${userId}`);
+      await axios2.delete(`/server/profile/delete-account/${userId}`);
       if (sessionInfo) {
         // clear deleted account connection
         killConnection();

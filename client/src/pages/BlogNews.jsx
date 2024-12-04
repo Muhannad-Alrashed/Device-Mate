@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios2 from "../axios2";
 import Loading from "../components/Loading";
 
 const BlogNews = () => {
@@ -14,7 +14,7 @@ const BlogNews = () => {
   useEffect(() => {
     const fetchSessionDetails = async () => {
       try {
-        const response = await axios.get("/server/global/get-articles");
+        const response = await axios2.get("/server/global/get-articles");
         setNewsArticles(response.data);
       } catch (error) {
         console.error(
@@ -35,7 +35,7 @@ const BlogNews = () => {
   useEffect(() => {
     const fetchSessionDetails = async () => {
       try {
-        const response = await axios.get("/server/global/get-posts");
+        const response = await axios2.get("/server/global/get-posts");
         setBlogPosts(response.data);
       } catch (error) {
         console.error(

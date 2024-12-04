@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
+import axios2 from "../axios2.js";
 import { AuthContext } from "../context/authContext.js";
 import { WebSocketContext } from "../context/webSocketContext.js";
 import { TransferContext } from "../context/transferContext.js";
@@ -141,7 +141,7 @@ const DashboardNavbar = () => {
     // Get sender name
     const fetchName = async (senderId) => {
       try {
-        const response = await axios.get(
+        const response = await axios2.get(
           `/server/chat/get-name/${senderId}/client`
         );
         return response.data.name;

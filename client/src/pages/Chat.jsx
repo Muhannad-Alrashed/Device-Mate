@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
-import axios from "axios";
+import axios2 from "../axios2";
 import "../styles/dashboard-pages.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { WebSocketContext } from "../context/webSocketContext";
@@ -40,7 +40,7 @@ const ChatPage = () => {
   // Get client name
   const fetchName = async (clientId) => {
     try {
-      const response = await axios.get(
+      const response = await axios2.get(
         `/server/chat/get-name/${clientId}/client`
       );
       return response.data.name;
@@ -56,7 +56,9 @@ const ChatPage = () => {
   // Get messages
   const fetchMessages = async (clientId) => {
     try {
-      const response = await axios.get(`/server/chat/get-messages/${clientId}`);
+      const response = await axios2.get(
+        `/server/chat/get-messages/${clientId}`
+      );
       return response.data;
     } catch (error) {
       console.error(
@@ -99,7 +101,7 @@ const ChatPage = () => {
     const fetchOldChats = async () => {
       const userId = currentUser.user_id;
       try {
-        const response = await axios.get(`/server/chat/get-chats/${userId}`);
+        const response = await axios2.get(`/server/chat/get-chats/${userId}`);
         const chats = response.data || [];
         ////
         const chatsWithClientDetails = await Promise.all(
@@ -143,7 +145,7 @@ const ChatPage = () => {
         message,
         repliedTo: repliedToMessage,
       };
-      const response = await axios.post("/server/chat/send-message", data);
+      const response = await axios2.post("/server/chat/send-message", data);
       sendMessage(response.data.details);
     } catch (error) {
       console.error(
@@ -229,7 +231,7 @@ const ChatPage = () => {
   const deleteMessage = async (message) => {
     const { message_id, sender_id } = message;
     try {
-      const response = await axios.delete(
+      const response = await axios2.delete(
         `/server/chat/delete-message/${message_id}?senderId=${sender_id}`
       );
       console.log("Success:", response.data);

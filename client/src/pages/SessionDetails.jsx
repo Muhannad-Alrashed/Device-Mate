@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import axios2 from "../axios2";
 import { FaChevronLeft, FaChevronDown } from "react-icons/fa";
 import { AuthContext } from "../context/authContext";
 import { UtilContext } from "../context/utilContext";
@@ -30,7 +30,7 @@ const Session = () => {
   useEffect(() => {
     const fetchSessionDetails = async () => {
       try {
-        const response = await axios.get(
+        const response = await axios2.get(
           `/server/history/get-session/${sessionId}`
         );
         setSessionDetails(response.data);
@@ -58,7 +58,7 @@ const Session = () => {
     const fetchSessionDetails = async () => {
       const clientId = sessionDetails.client_id;
       try {
-        const response = await axios.get(
+        const response = await axios2.get(
           `/server/history/get-device-info/${clientId}`
         );
         setClientDeviceInfo(response.data);
@@ -79,7 +79,7 @@ const Session = () => {
   useEffect(() => {
     const fetchTransferedFiles = async () => {
       try {
-        const response = await axios.get(
+        const response = await axios2.get(
           `/server/history/get-files/${sessionId}`
         );
         setTransferredFiles(response.data);
@@ -184,7 +184,7 @@ const Session = () => {
 
   const handleDeleteFile = async () => {
     try {
-      const response = await axios.delete(
+      const response = await axios2.delete(
         `/server/history/delete-file/${transferId}`
       );
       setPopupData({
@@ -225,7 +225,7 @@ const Session = () => {
     setIsModalOpen(false);
     const clientId = sessionDetails.client_id;
     try {
-      const response = await axios.delete(
+      const response = await axios2.delete(
         `/server/history/delete-session/${clientId}`
       );
       setSessionDeleted(true);

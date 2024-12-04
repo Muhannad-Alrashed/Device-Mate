@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios2 from "../axios2";
 import { AuthContext } from "../context/authContext";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Popup from "../components/Popup";
@@ -35,7 +35,7 @@ const Profile = () => {
     if (!infoChanged) return;
     const userId = currentUser.user_id;
     try {
-      const response = await axios.put(
+      const response = await axios2.put(
         `/server/profile/save-info/${userId}`,
         userInfo
       );
@@ -71,7 +71,7 @@ const Profile = () => {
     const userId = currentUser.user_id;
     const newPassword = newPasswordRef.current.value;
     try {
-      const response = await axios.put(
+      const response = await axios2.put(
         `/server/profile/save-password/${userId}`,
         {
           password: newPassword,
@@ -101,7 +101,7 @@ const Profile = () => {
     const userId = currentUser.user_id;
     const password = oldPasswordRef.current.value;
     try {
-      const response = await axios.get(
+      const response = await axios2.get(
         `/server/profile/check-password/${userId}?password=${password}`
       );
       return response.data;

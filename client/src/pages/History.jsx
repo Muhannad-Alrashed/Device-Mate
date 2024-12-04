@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios2 from "../axios2";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { AuthContext } from "../context/authContext";
 import { UtilContext } from "../context/utilContext";
@@ -19,7 +19,7 @@ const HistoryPage = () => {
     const fetchSessions = async () => {
       const userId = currentUser.user_id;
       try {
-        const response = await axios.get(
+        const response = await axios2.get(
           `/server/history/get-sessions/${userId}/all`
         );
         setSessions(response.data);

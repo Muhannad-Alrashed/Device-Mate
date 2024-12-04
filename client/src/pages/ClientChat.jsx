@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import ConfirmModal from "../components/ConfirmModal";
-import axios from "axios";
+import axios2 from "../axios2";
 import "../styles/dashboard-pages.css";
 import { WebSocketContext } from "../context/webSocketContext";
 import { UtilContext } from "../context/utilContext";
@@ -25,7 +25,7 @@ const ChatPage = () => {
   useEffect(() => {
     const fetchClientId = async () => {
       try {
-        const response = await axios.get(
+        const response = await axios2.get(
           `/server/chat/client-Id/${connectionInfo.user.code}`
         );
         return response.data;
@@ -36,7 +36,7 @@ const ChatPage = () => {
     };
     const loadChat = async (Id) => {
       try {
-        const response = await axios.get(`/server/chat/get-messages/${Id}`);
+        const response = await axios2.get(`/server/chat/get-messages/${Id}`);
         setChat({ clientId: Id, messages: response.data });
       } catch (error) {
         console.error("Failed to load chat", error.message);
@@ -67,7 +67,7 @@ const ChatPage = () => {
         message,
         repliedTo: repliedToMessage,
       };
-      const response = await axios.post("/server/chat/send-message", data);
+      const response = await axios2.post("/server/chat/send-message", data);
       sendMessage(response.data.details);
     } catch (error) {
       console.error(
@@ -152,7 +152,7 @@ const ChatPage = () => {
   const deleteMessage = async (message) => {
     const { message_id, sender_id } = message;
     try {
-      const response = await axios.delete(
+      const response = await axios2.delete(
         `/server/chat/delete-message/${message_id}?senderId=${sender_id}`
       );
       console.log("Success:", response.data);

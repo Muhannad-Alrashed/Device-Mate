@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios2 from "../axios2";
 import { AuthContext } from "../context/authContext";
 import { FaChevronDown } from "react-icons/fa";
 import { WebSocketContext } from "../context/webSocketContext";
@@ -24,7 +24,7 @@ const Dashboard = () => {
     const fetchSessions = async () => {
       const userId = currentUser.user_id;
       try {
-        const response = await axios.get(
+        const response = await axios2.get(
           `/server/history/get-sessions/${userId}/recent`
         );
         setOldSessions(response.data);

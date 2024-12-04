@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
-import axios from "axios";
+import axios2 from "../axios2";
 import { UtilContext } from "../context/utilContext";
 import Loading from "../components/Loading";
 
@@ -17,7 +17,7 @@ const BlogNewsItem = () => {
   useEffect(() => {
     const fetchSessionDetails = async () => {
       try {
-        const response = await axios.get(
+        const response = await axios2.get(
           `/server/global/get-post-article/${itemId}`
         );
         setItemInfos(response.data);

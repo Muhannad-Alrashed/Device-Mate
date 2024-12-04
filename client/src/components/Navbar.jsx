@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { WebSocketContext } from "../context/webSocketContext.js";
-import axios from "axios";
+import axios2 from "../axios2.js";
 import Logo from "../img/logo-white-small.png";
 import { FaAlignRight, FaUser } from "react-icons/fa";
 import Popup from "../components/Popup";
@@ -90,7 +90,7 @@ const NavBar = () => {
       // Get sender name
       const fetchName = async (senderId) => {
         try {
-          const response = await axios.get(
+          const response = await axios2.get(
             `/server/chat/get-name/${senderId}/user`
           );
           return response.data.name;
