@@ -17,25 +17,20 @@ const chatRoutes = require('./routes/chat');
 const profileRoutes = require('./routes/profile');
 const historyRoutes = require('./routes/history');
 const globalRoutes = require('./routes/global');
+const corsOptions = {
+  // origin: "http://localhost:3000",             // Development
+  origin: "https://devicemate.netlify.app",      // Production
+  methods: ["*"],
+  credentials: true,
+};
 
 // Server Setup
 const app = express();
 const server = http.createServer(app);
-const corsOptions = {
-  // origin: "http://localhost:3000",             // Development
-  origin: "https://devicemate.netlify.app/",      // Production
-  methods: ["*"],
-  credentials: true,
-};
 // Socket Setup
 const io = socketIo(server, {
   transports: ['websocket', 'polling'],
-  cors: {
-    // origin: "http://localhost:3000",           // Development
-    origin: "https://devicemate.netlify.app/",    // Production
-    methods: ["*"],
-    credentials: true
-  }
+  cors: corsOptions
 });
 
 // Middlewares
