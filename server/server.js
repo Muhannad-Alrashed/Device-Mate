@@ -24,6 +24,7 @@ const server = http.createServer(app);
 const corsOptions = {
   // origin: "http://localhost:3000",             // Development
   origin: process.env.REACT_APP_API_URL,          // Production 
+  // origin: "https://devicemate.netlify.app/",    // Production
   methods: ["*"],
   credentials: true,
 };
@@ -32,7 +33,8 @@ const io = socketIo(server, {
   transports: ['websocket', 'polling'],
   cors: {
     // origin: "http://localhost:3000",           // Development
-    origin: "https://devicemate.netlify.app/",    // Production
+    origin: process.env.REACT_APP_API_URL,          // Production 
+    // origin: "https://devicemate.netlify.app/",    // Production
     methods: ["*"],
     credentials: true
   }
