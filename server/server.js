@@ -30,7 +30,7 @@ const server = http.createServer(app);
 // Socket Setup
 const io = socketIo(server, {
   transports: ['websocket', 'polling'],
-  cors: corsOptions
+  cors: corsOptions,
 });
 
 // Middlewares

@@ -6,7 +6,8 @@ import { AuthContext } from "./authContext";
 // Development
 // const socket = io("http://localhost:3001", { transports: ["websocket", "polling"] });
 // Production
-const socket = io(process.env.REACT_APP_API_URL, { transports: ["websocket", "polling"] });
+const socket = io('wss://device-mate-production.up.railway.app',
+    { transports: ["websocket", "polling"], withCredentials: true, });
 
 export const WebSocketContext = createContext();
 
