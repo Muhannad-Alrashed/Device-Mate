@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const cors = require('cors');
 const socketIo = require('socket.io');
+
 // Modules
 const verifyToken = require('./middlewares/authMiddleware');
 const authRoutes = require('./routes/auth');
@@ -16,22 +17,32 @@ const chatRoutes = require('./routes/chat');
 const profileRoutes = require('./routes/profile');
 const historyRoutes = require('./routes/history');
 const globalRoutes = require('./routes/global');
+
 // Server Setup
 const app = express();
 const server = http.createServer(app);
+const corsOptions = {
+  // origin: "http://localhost:3000",             // Development
+  origin: process.env.REACT_APP_API_URL,          // Production 
+  methods: ["*"],
+  credentials: true,
+};
+// Socket Setup
 const io = socketIo(server, {
   transports: ['websocket', 'polling'],
   cors: {
-    origin: "http://localhost:3000",
+    // origin: "http://localhost:3000",           // Development
+    origin: "https://devicemate.netlify.app/",    // Production
     methods: ["*"],
     credentials: true
   }
 });
+
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 
 // APIs
 createSocket(io);                             // Socket Creation

@@ -3,9 +3,10 @@ import io from "socket.io-client";
 import axios2 from "../axios2";
 import { AuthContext } from "./authContext";
 
-const socket = io(process.env.REACT_APP_API_URL || "http://localhost:3001", {
-    transports: ["websocket", "polling"]
-});
+// Development
+// const socket = io("http://localhost:3001", { transports: ["websocket", "polling"] });
+// Production
+const socket = io(process.env.REACT_APP_API_URL, { transports: ["websocket", "polling"] });
 
 export const WebSocketContext = createContext();
 

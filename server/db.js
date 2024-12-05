@@ -9,11 +9,11 @@ const dbConfig = isCloudDB
   ?
   // Cloud database configuration
   `mysql://
-              ${process.env.MYSQLUSER}:
-              ${process.env.MYSQLPASSWORD}@
-              ${process.env.MYSQLHOST}:
-              ${process.env.MYSQLPORT}/
-              ${process.env.MYSQLDATABASE}`
+          ${process.env.MYSQLUSER}:
+          ${process.env.MYSQLPASSWORD}@
+          ${process.env.MYSQLHOST}:
+          ${process.env.MYSQLPORT}/
+          ${process.env.MYSQLDATABASE}`
   : {
     // Local database configuration
     user: process.env.DB_USER,
