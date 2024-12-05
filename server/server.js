@@ -20,7 +20,7 @@ const globalRoutes = require('./routes/global');
 const corsOptions = {
   // origin: "http://localhost:3000",             // Development
   origin: "https://devicemate.netlify.app",      // Production
-  methods: ["*"],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
 };
 
