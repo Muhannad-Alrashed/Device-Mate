@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const cors = require('cors');
 const socketIo = require('socket.io');
+require('dotenv').config();
 
 // Modules
 const verifyToken = require('./middlewares/authMiddleware');
