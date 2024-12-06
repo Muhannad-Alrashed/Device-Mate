@@ -49,10 +49,10 @@ app.use('/server/files', filesRoutes);        // Transfer Routes
 app.use('/server/chat', chatRoutes);          // Chat Routes
 app.use('/server/profile', profileRoutes);    // Profile Routes
 app.use('/server/history', historyRoutes);    // History Routes
-app.use('/global', globalRoutes);      // Global Routes
+app.use('/server/global', globalRoutes);      // Global Routes
 
 // Start Server
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
   console.log(`Server is connected and running on http://localhost:${PORT}`);
 });
