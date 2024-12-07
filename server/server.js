@@ -57,7 +57,7 @@ app.use('/global', globalRoutes);      // Global Routes
 
 // Test API
 app.use('/', (req, res) => {
-  res.send("Welcome to API endpoint");
+  res.send("Welcome to APIs URL");
 })
 
 // Start Server

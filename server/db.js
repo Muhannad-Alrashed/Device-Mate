@@ -26,7 +26,7 @@ db.connect((err) => {
     console.error("Error connecting to the database:", err.message);
     return;
   }
-  console.log(`Connected to ${isCloudDB ? "Cloud" : "Local"} MySQL database.`);
+  console.log(`Connected to ${isCloudDB ? "Cloud" : "Local"} MySQL Database.`);
 });
 
 module.exports = db;
