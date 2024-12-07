@@ -1,0 +1,19 @@
+{
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default",
+        "enableSsl": "Disabled"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "PR2",
+      "database": "DeviceMateDB",
+      "username": "root",
+      "password": "my@sql@12345@"
+    }
+  ],
+  "json.schemaDownload.enable": false
+}

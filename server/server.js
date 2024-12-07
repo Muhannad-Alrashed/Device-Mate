@@ -57,6 +57,6 @@ app.use('/', (req, res) => {
 
 // Start Server
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is connected and running on http://localhost:${PORT}`);
 });
