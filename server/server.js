@@ -41,7 +41,7 @@ app.use(helmet());
 app.use(cors(corsOptions));
 
 // APIs
-createSocket(io);                             // Socket Creation
+createSocket(io);                      // Socket Creation
 app.use('/dashboard', verifyToken);    // Dashboard Authorization
 app.use('/auth', authRoutes);          // Authentication Routes
 app.use('/conn', connRoutes);          // Connection Routes
@@ -57,6 +57,6 @@ app.use('/', (req, res) => {
 
 // Start Server
 const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server is connected and running on http://localhost:${PORT}`);
 });
