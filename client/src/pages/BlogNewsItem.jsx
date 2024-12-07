@@ -17,9 +17,7 @@ const BlogNewsItem = () => {
   useEffect(() => {
     const fetchSessionDetails = async () => {
       try {
-        const response = await axios2.get(
-          `/server/global/get-post-article/${itemId}`
-        );
+        const response = await axios2.get(`/global/get-post-article/${itemId}`);
         setItemInfos(response.data);
       } catch (error) {
         console.error(

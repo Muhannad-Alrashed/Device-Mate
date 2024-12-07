@@ -141,9 +141,7 @@ const DashboardNavbar = () => {
     // Get sender name
     const fetchName = async (senderId) => {
       try {
-        const response = await axios2.get(
-          `/server/chat/get-name/${senderId}/client`
-        );
+        const response = await axios2.get(`/chat/get-name/${senderId}/client`);
         return response.data.name;
       } catch (error) {
         console.error(

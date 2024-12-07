@@ -3,10 +3,10 @@ import io from "socket.io-client";
 import axios2 from "../axios2";
 import { AuthContext } from "./authContext";
 
-// Development
-// const socket = io("http://localhost:8080", { transports: ["websocket", "polling"] });
-// Production
-const socket = io(process.env.REACT_APP_API_URL, { transports: ["websocket", "polling"] });
+const socket = io(
+    process.env.REACT_APP_API_URL           // Production
+    || 'http://localhost:3001',             // Development
+    { transports: ["websocket", "polling"] });
 
 export const WebSocketContext = createContext();
 
@@ -57,7 +57,7 @@ export const WebSocketContextProvider = ({ children }) => {
         } = connectionInfo;
         const getCurrentSession = async () => {
             try {
-                const response = await axios2.get(`/server/conn/get-current/${code}`);
+                const response = await axios2.get(`/conn/get-current/${code}`);
                 setSessionInfo(response.data);
             } catch (error) {
                 console.error(error.response ? error.response.data : error.message);
@@ -215,7 +215,7 @@ export const WebSocketContextProvider = ({ children }) => {
     const startSession = async (conData) => {
         const data = { ...conData, clientDeviceInfo }
         try {
-            const response = await axios2.post("/server/conn/start-session", data);
+            const response = await axios2.post("/conn/start-session", data);
             console.log(response.data.message);
             setSessionInfo(response.data.result)
             return "";
@@ -228,7 +228,7 @@ export const WebSocketContextProvider = ({ children }) => {
     // End session
     const endSession = async () => {
         try {
-            const response = await axios2.post("/server/conn/end-session", sessionInfo);
+            const response = await axios2.post("/conn/end-session", sessionInfo);
             console.log(response.data);
             setSessionInfo(null);
         } catch (error) {
@@ -241,7 +241,7 @@ export const WebSocketContextProvider = ({ children }) => {
     const isCodeExists = async (userCode) => {
         const userId = currentUser.user_id;
         try {
-            const response = await axios2.get(`/server/conn/code-exist/${userCode}/${userId}`);
+            const response = await axios2.get(`/conn/code-exist/${userCode}/${userId}`);
             return response.data.exists;
         } catch (error) {
             console.error('Error checking connection code, ', error.message);
@@ -252,7 +252,7 @@ export const WebSocketContextProvider = ({ children }) => {
     const isClientExists = async (clientName) => {
         const userId = currentUser.user_id;
         try {
-            const response = await axios2.get(`/server/conn/name-exist/${clientName}/${userId}`);
+            const response = await axios2.get(`/conn/name-exist/${clientName}/${userId}`);
             return response.data.exists;
         } catch (error) {
             console.error('Error checking client name, ', error.message);

@@ -30,9 +30,7 @@ const Session = () => {
   useEffect(() => {
     const fetchSessionDetails = async () => {
       try {
-        const response = await axios2.get(
-          `/server/history/get-session/${sessionId}`
-        );
+        const response = await axios2.get(`/history/get-session/${sessionId}`);
         setSessionDetails(response.data);
       } catch (error) {
         console.error(
@@ -59,7 +57,7 @@ const Session = () => {
       const clientId = sessionDetails.client_id;
       try {
         const response = await axios2.get(
-          `/server/history/get-device-info/${clientId}`
+          `/history/get-device-info/${clientId}`
         );
         setClientDeviceInfo(response.data);
       } catch (error) {
@@ -79,9 +77,7 @@ const Session = () => {
   useEffect(() => {
     const fetchTransferedFiles = async () => {
       try {
-        const response = await axios2.get(
-          `/server/history/get-files/${sessionId}`
-        );
+        const response = await axios2.get(`/history/get-files/${sessionId}`);
         setTransferredFiles(response.data);
       } catch (error) {
         console.error(
@@ -185,7 +181,7 @@ const Session = () => {
   const handleDeleteFile = async () => {
     try {
       const response = await axios2.delete(
-        `/server/history/delete-file/${transferId}`
+        `/history/delete-file/${transferId}`
       );
       setPopupData({
         title: "Success",
@@ -226,7 +222,7 @@ const Session = () => {
     const clientId = sessionDetails.client_id;
     try {
       const response = await axios2.delete(
-        `/server/history/delete-session/${clientId}`
+        `/history/delete-session/${clientId}`
       );
       setSessionDeleted(true);
       // End connection if current session deleted

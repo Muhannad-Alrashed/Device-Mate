@@ -26,7 +26,7 @@ const DeleteAccount = () => {
     setIsDeleting(true);
     const userId = currentUser.user_id;
     try {
-      await axios2.delete(`/server/profile/delete-account/${userId}`);
+      await axios2.delete(`/profile/delete-account/${userId}`);
       if (sessionInfo) {
         // clear deleted account connection
         killConnection();

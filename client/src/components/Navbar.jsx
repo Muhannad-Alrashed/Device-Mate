@@ -90,9 +90,7 @@ const NavBar = () => {
       // Get sender name
       const fetchName = async (senderId) => {
         try {
-          const response = await axios2.get(
-            `/server/chat/get-name/${senderId}/user`
-          );
+          const response = await axios2.get(`/chat/get-name/${senderId}/user`);
           return response.data.name;
         } catch (error) {
           console.error(

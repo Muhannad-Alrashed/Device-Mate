@@ -36,7 +36,7 @@ const Profile = () => {
     const userId = currentUser.user_id;
     try {
       const response = await axios2.put(
-        `/server/profile/save-info/${userId}`,
+        `/profile/save-info/${userId}`,
         userInfo
       );
       setCurrentUser(response.data);
@@ -71,12 +71,9 @@ const Profile = () => {
     const userId = currentUser.user_id;
     const newPassword = newPasswordRef.current.value;
     try {
-      const response = await axios2.put(
-        `/server/profile/save-password/${userId}`,
-        {
-          password: newPassword,
-        }
-      );
+      const response = await axios2.put(`/profile/save-password/${userId}`, {
+        password: newPassword,
+      });
       if (response.data !== 0)
         setPopupData({
           title: "Success",
@@ -102,7 +99,7 @@ const Profile = () => {
     const password = oldPasswordRef.current.value;
     try {
       const response = await axios2.get(
-        `/server/profile/check-password/${userId}?password=${password}`
+        `/profile/check-password/${userId}?password=${password}`
       );
       return response.data;
     } catch (error) {

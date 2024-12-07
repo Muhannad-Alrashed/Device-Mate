@@ -297,7 +297,7 @@ const CurrentSession = () => {
 
   const saveFileToDB = async (metadata, id) => {
     try {
-      const response = await axios2.post(`/server/files/save/${id}`, {
+      const response = await axios2.post(`/files/save/${id}`, {
         metadata,
         sessionInfo,
       });

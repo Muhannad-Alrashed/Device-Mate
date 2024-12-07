@@ -18,9 +18,13 @@ const chatRoutes = require('./routes/chat');
 const profileRoutes = require('./routes/profile');
 const historyRoutes = require('./routes/history');
 const globalRoutes = require('./routes/global');
+
+// Settings
+const PORT = process.env.SERVER_PORT || 3001;
 const corsOptions = {
-  // origin: "http://localhost:3000",             // Development
-  origin: "https://devicemate.netlify.app",      // Production
+  origin: PORT === 3001
+    ? "http://localhost:3000"                    // Development
+    : "https://devicemate.netlify.app",          // Production
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
 };
@@ -51,12 +55,14 @@ app.use('/profile', profileRoutes);    // Profile Routes
 app.use('/history', historyRoutes);    // History Routes
 app.use('/global', globalRoutes);      // Global Routes
 
+// Test API
 app.use('/', (req, res) => {
-  res.send("welcome");
+  res.send("Welcome to API endpoint");
 })
 
 // Start Server
-const PORT = process.env.PORT || 8080;
+const localHost = `http://localhost:${PORT}`;
+const cloudHost = process.env.SERVER_HOST
 server.listen(PORT, () => {
-  console.log(`Server is connected and running on http://localhost:${PORT}`);
+  console.log(`Server is connected and running on ${PORT === 3001 ? localHost : cloudHost}`);
 });

@@ -25,7 +25,7 @@ const Dashboard = () => {
       const userId = currentUser.user_id;
       try {
         const response = await axios2.get(
-          `/server/history/get-sessions/${userId}/recent`
+          `/history/get-sessions/${userId}/recent`
         );
         setOldSessions(response.data);
       } catch (error) {

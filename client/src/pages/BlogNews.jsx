@@ -14,7 +14,7 @@ const BlogNews = () => {
   useEffect(() => {
     const fetchSessionDetails = async () => {
       try {
-        const response = await axios2.get("/server/global/get-articles");
+        const response = await axios2.get("/global/get-articles");
         setNewsArticles(response.data);
       } catch (error) {
         console.error(
@@ -35,7 +35,7 @@ const BlogNews = () => {
   useEffect(() => {
     const fetchSessionDetails = async () => {
       try {
-        const response = await axios2.get("/server/global/get-posts");
+        const response = await axios2.get("/global/get-posts");
         setBlogPosts(response.data);
       } catch (error) {
         console.error(

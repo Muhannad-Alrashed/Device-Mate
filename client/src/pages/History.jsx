@@ -20,7 +20,7 @@ const HistoryPage = () => {
       const userId = currentUser.user_id;
       try {
         const response = await axios2.get(
-          `/server/history/get-sessions/${userId}/all`
+          `/history/get-sessions/${userId}/all`
         );
         setSessions(response.data);
       } catch (error) {
