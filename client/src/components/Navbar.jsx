@@ -139,11 +139,10 @@ const NavBar = () => {
   };
 
   const handleClickOutside = (event) => {
-    if (
-      !dropdownRef.current.contains(event.target) &&
-      dropdownContentRef.current.classList.contains("show-dropdown")
-    ) {
-      dropdownContentRef.current.classList.remove("show-dropdown");
+    if (dropdownContentRef.current.classList.contains("show-dropdown")) {
+      setTimeout(() => {
+        dropdownContentRef.current.classList.remove("show-dropdown");
+      }, 100);
     }
   };
 
