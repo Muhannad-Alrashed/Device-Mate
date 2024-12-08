@@ -4,9 +4,8 @@ import axios2 from "../axios2";
 import { AuthContext } from "./authContext";
 
 const socket = io(
-    'https://device-mate.up.railway.app/'
-    // process.env.REACT_APP_API_URL             // Production
-    ,// || 'http://localhost:3001',             // Development
+    process.env.REACT_APP_API_URL           // Production
+    || 'http://localhost:3001',             // Development
     { transports: ["websocket", "polling"] });
 
 export const WebSocketContext = createContext();
