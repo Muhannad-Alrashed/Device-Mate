@@ -56,8 +56,19 @@ app.use('/history', historyRoutes);    // History Routes
 app.use('/global', globalRoutes);      // Global Routes
 
 // Test API
-app.use('/', (req, res) => {
-  res.send("Welcome to APIs URL");
+app.use('/', (_, res) => {
+  // res.send("Welcome to APIs URL");
+
+  const query = `SELECT * FROM posts_articles WHERE type = 'article'`;
+  db.query(query, (err, articles) => {
+    if (err) {
+      return res.status(500).json(err.message);
+    }
+    if (articles.length === 0) {
+      return res.status(404).json('No  articles found.');
+    }
+    res.status(200).json(articles);
+  });
 })
 
 // Start Server
