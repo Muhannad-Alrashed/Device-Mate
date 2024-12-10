@@ -23,8 +23,9 @@ const globalRoutes = require('./routes/global');
 const PORT = process.env.SERVER_PORT || 3001;
 const corsOptions = {
   origin: PORT === 3001
-    ? "http://localhost:3000"                    // Development
-    : "https://devicemate.netlify.app",          // Production
+    ? "http://localhost:3000"                     // Development
+    : "https://devicemate.netlify.app"            // Production
+    || "https://devicemate.up.railway.app",          // Production
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
 };
