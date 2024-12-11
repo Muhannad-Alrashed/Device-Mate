@@ -290,7 +290,7 @@ const ChatPage = () => {
           </button>
         </div>
       </div>
-      {chat ? (
+      {chat && connectionInfo.user.state && connectionInfo.client.state ? (
         <div
           className="flex-1 flex flex-col gap-2 p-2"
           onMouseEnter={handleMouseEnter}
