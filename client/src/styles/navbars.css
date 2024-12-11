@@ -157,7 +157,7 @@
   }
 
   .dashboard-navbar .dropdown-content {
-    margin-top: 97px !important;
+    margin-top: 92px !important;
     justify-self: center;
   }
 }
@@ -199,7 +199,7 @@
 .dashboard-navbar .nav-links .file-dropdown-content {
   position: absolute;
   left: -20px;
-  margin-top: 13px !important;
+  margin-top: 10px !important;
   width: 230px !important;
   padding-top: 14px !important;
 }

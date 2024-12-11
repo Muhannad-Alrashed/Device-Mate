@@ -195,11 +195,10 @@ const DashboardNavbar = () => {
   };
 
   const handleClickOutside = (event) => {
-    if (
-      !event.target.closest(".user-dropbtn") &&
-      !event.target.closest(".file-dropbtn")
-    ) {
+    if (!event.target.closest(".user-dropbtn")) {
       setUserDropdownVisible(false);
+    }
+    if (!event.target.closest(".file-dropbtn")) {
       setFileDropdownVisible(false);
     }
   };
