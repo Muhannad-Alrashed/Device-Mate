@@ -160,6 +160,10 @@
     margin-top: 92px !important;
     justify-self: center;
   }
+
+  .dashboard-navbar .nav-links .file-dropdown-content {
+    margin-top: 10px !important;
+  }
 }
 
 .dashboard-navbar {
@@ -199,7 +203,7 @@
 .dashboard-navbar .nav-links .file-dropdown-content {
   position: absolute;
   left: -20px;
-  margin-top: 10px !important;
+  margin-top: 13px;
   width: 230px !important;
   padding-top: 14px !important;
 }
