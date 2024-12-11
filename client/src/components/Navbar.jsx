@@ -138,7 +138,7 @@ const NavBar = () => {
     }
   };
 
-  const handleClickOutside = (event) => {
+  const handleClickOutside = () => {
     if (dropdownContentRef.current.classList.contains("show-dropdown")) {
       setTimeout(() => {
         dropdownContentRef.current.classList.remove("show-dropdown");

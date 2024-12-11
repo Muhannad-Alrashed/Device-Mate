@@ -88,6 +88,9 @@ a {
   .md-text-15px {
     font-size: 14px !important;
   }
+  main {
+    min-height: calc(100vh - 144px);
+  }
 }
 
 /*-----------------------  Custome Color Classes -----------------------*/

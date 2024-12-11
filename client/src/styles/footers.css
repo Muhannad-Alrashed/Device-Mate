@@ -82,11 +82,11 @@
 
 @media (max-width: 640px) {
   .dashboard-footer {
-    flex-direction: column;
     gap: 4px;
   }
   .dashboard-footer .column {
     order: -1;
+    gap: 4px;
   }
 }
 

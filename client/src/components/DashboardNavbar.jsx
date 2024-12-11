@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios2 from "../axios2.js";
 import { AuthContext } from "../context/authContext.js";
@@ -182,9 +182,6 @@ const DashboardNavbar = () => {
   const [userDropdownVisible, setUserDropdownVisible] = useState(false);
   const [fileDropdownVisible, setFileDropdownVisible] = useState(false);
 
-  const userDropdownRef = useRef();
-  const fileDropdownRef = useRef();
-
   const toggleUserDropdown = () => {
     setUserDropdownVisible((prev) => !prev);
   };
@@ -199,36 +196,26 @@ const DashboardNavbar = () => {
 
   const handleClickOutside = (event) => {
     if (
-      userDropdownRef.current &&
-      !userDropdownRef.current.contains(event.target)
+      !event.target.closest(".user-dropbtn") &&
+      !event.target.closest(".file-dropbtn")
     ) {
       setUserDropdownVisible(false);
-    }
-    if (
-      fileDropdownRef.current &&
-      !fileDropdownRef.current.contains(event.target)
-    ) {
       setFileDropdownVisible(false);
     }
   };
 
-  const hideAllDropdowns = () => {
-    setUserDropdownVisible(false);
-    setFileDropdownVisible(false);
-  };
-
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
   //------------------- Handle Export Files ------------------
 
   const { triggerAction } = useContext(UtilContext);
 
   const HandleExportFile = () => {
-    hideAllDropdowns();
     if (connectionInfo.user.code !== "" && connectionInfo.client.code !== "") {
       triggerAction("export", null);
     } else {
@@ -242,7 +229,6 @@ const DashboardNavbar = () => {
   //------------------- Handle Import Files ------------------
 
   const HandleImportFile = () => {
-    hideAllDropdowns();
     if (connectionInfo.user.code === "" || connectionInfo.client.code === "") {
       setPopupData({
         title: "Info",
@@ -275,10 +261,7 @@ const DashboardNavbar = () => {
               />
             </button>
             {fileDropdownVisible && (
-              <div
-                ref={fileDropdownRef}
-                className="dropdown-content file-dropdown-content"
-              >
+              <div className="dropdown-content file-dropdown-content">
                 <button onClick={HandleExportFile}>
                   <FaFileArrowUp className="dropdown-icon file-download" />
                   <p className="flex-1">Export File To Device</p>
@@ -324,8 +307,8 @@ const DashboardNavbar = () => {
             />
           </button>
           {userDropdownVisible && (
-            <div ref={userDropdownRef} className="dropdown-content">
-              <Link to="/dashboard/profile" onClick={hideAllDropdowns}>
+            <div className="dropdown-content">
+              <Link to="/dashboard/profile">
                 <FontAwesomeIcon
                   icon={faUser}
                   className="dropdown-icon profile"
@@ -333,11 +316,11 @@ const DashboardNavbar = () => {
                 Profile
               </Link>
               <hr className="mx-4 text-gray" />
-              <Link to="/dashboard/history" onClick={hideAllDropdowns}>
+              <Link to="/dashboard/history">
                 <FaHistory className="dropdown-icon history" />
                 History
               </Link>{" "}
-              <Link to="/support" onClick={hideAllDropdowns}>
+              <Link to="/support">
                 <FontAwesomeIcon
                   icon={faCircleQuestion}
                   className="dropdown-icon history"

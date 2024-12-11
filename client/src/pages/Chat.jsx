@@ -316,10 +316,10 @@ const ChatPage = () => {
   //-------------------------------------------------------------------------
 
   return (
-    <div className="chat-box min-h-[73vh] sm:min-h-[86vh] max-h-[73vh] sm:max-h-[86vh]">
+    <div className="chat-box min-h-[82vh] sm:min-h-[86vh] max-h-[82vh] sm:max-h-[86vh]">
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar for Devices */}
-        <div className="flex">
+        <div className="flex max-w-[50%]">
           <div
             className={`${
               isSidebarCollapsed ? "w-54px" : "w-300px"
