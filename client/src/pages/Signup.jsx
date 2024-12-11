@@ -4,6 +4,7 @@ import { AuthContext } from "../context/authContext";
 import { WebSocketContext } from "../context/webSocketContext";
 import { TransferContext } from "../context/transferContext";
 import Popup from "../components/Popup";
+import Loading from "../components/Loading";
 import "../styles/login-signup.css";
 
 const Signup = () => {
@@ -19,6 +20,7 @@ const Signup = () => {
     password: "",
   });
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   //---------------------------------------
 
@@ -29,6 +31,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       await signup(inputs);
       setShowPopup(true);
       if (currentUser) {
@@ -38,6 +41,7 @@ const Signup = () => {
       }
     } catch (error) {
       setError(error.response ? error.response.data : error.message);
+      setLoading(false);
     }
   };
 
@@ -53,47 +57,55 @@ const Signup = () => {
       {!showPopup ? (
         <div className="container auth">
           <form onSubmit={handleSubmit}>
-            <Link className="close-button" to="/">
-              X
-            </Link>
             <h1>Create a New Account</h1>
-            <input
-              className="focus:outline-none focus:border-[#40bf95]"
-              autoComplete="off"
-              required
-              type="text"
-              placeholder="username"
-              name="username"
-              onChange={handleChange}
-            />
-            <input
-              className="focus:outline-none focus:border-[#40bf95]"
-              autoComplete="off"
-              required
-              type="email"
-              placeholder="email"
-              name="email"
-              onChange={handleChange}
-            />
-            <input
-              className="focus:outline-none focus:border-[#40bf95]"
-              autoComplete="off"
-              required
-              type="password"
-              placeholder="password"
-              name="password"
-              onChange={handleChange}
-            />
-            <button className="primary-button" type="submit">
-              Create Account
-            </button>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <span>
-              Don't you have an account?
-              <Link className="link-button" to="/login">
-                Log In
-              </Link>
-            </span>
+            {loading ? (
+              <div className="m-auto">
+                <Loading label="Creating An Account" />
+              </div>
+            ) : (
+              <>
+                <Link className="close-button" to="/">
+                  X
+                </Link>
+                <input
+                  className="focus:outline-none focus:border-[#40bf95]"
+                  autoComplete="off"
+                  required
+                  type="text"
+                  placeholder="username"
+                  name="username"
+                  onChange={handleChange}
+                />
+                <input
+                  className="focus:outline-none focus:border-[#40bf95]"
+                  autoComplete="off"
+                  required
+                  type="email"
+                  placeholder="email"
+                  name="email"
+                  onChange={handleChange}
+                />
+                <input
+                  className="focus:outline-none focus:border-[#40bf95]"
+                  autoComplete="off"
+                  required
+                  type="password"
+                  placeholder="password"
+                  name="password"
+                  onChange={handleChange}
+                />
+                <button className="primary-button" type="submit">
+                  Create Account
+                </button>
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                <span>
+                  Don't you have an account?
+                  <Link className="link-button" to="/login">
+                    Log In
+                  </Link>
+                </span>
+              </>
+            )}
           </form>
         </div>
       ) : (
