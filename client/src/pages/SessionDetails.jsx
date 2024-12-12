@@ -157,7 +157,7 @@ const Session = () => {
 
   const handleModalConfirm = () => {
     switch (modalMessage) {
-      case "Are you sure you want to clear this file?":
+      case "Are you sure you want to delete this file?":
         handleDeleteFile();
         break;
       case "Are you sure you want to delete this session?":
@@ -173,7 +173,7 @@ const Session = () => {
   // ---------------------- Delete File ----------------------------
 
   const deleteFile = async (transferId) => {
-    setModalMessage("Are you sure you want to clear this file?");
+    setModalMessage("Are you sure you want to delete this file?");
     setIsModalOpen(true);
     setTransferId(transferId);
   };
