@@ -58,9 +58,9 @@ app.use('/history', historyRoutes);    // History Routes
 app.use('/global', globalRoutes);      // Global Routes
 
 // Test API
-// app.get('/', (_, res) => {
-//   res.send("Welcome to APIs URL");
-// });
+app.get('/', (_, res) => {
+  res.send("Welcome to APIs URL");
+});
 
 // Start Server
 const localHost = `http://localhost:${PORT}`;
