@@ -40,8 +40,8 @@ const Signup = () => {
         clearTransferData();
       }
     } catch (error) {
-      setError(error.response ? error.response.data : error.message);
       setLoading(false);
+      setError(error.response ? error.response.data : error.message);
     }
   };
 

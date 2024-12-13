@@ -34,8 +34,8 @@ const Login = () => {
       }
       navigate("/dashboard");
     } catch (error) {
-      setError(error.response?.data);
       setLoading(false);
+      setError(error.response?.data);
     }
   };
 
