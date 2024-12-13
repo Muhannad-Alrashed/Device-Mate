@@ -61,3 +61,13 @@
 .chat-box .send {
   transform: none !important;
 }
+
+/* -------------------------- History ------------------------- */
+
+@media (max-width: 768px) {
+  .scroll-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

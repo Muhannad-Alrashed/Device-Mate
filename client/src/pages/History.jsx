@@ -55,7 +55,7 @@ const HistoryPage = () => {
             No Completed Sessions.
           </div>
         ) : (
-          <table className="min-w-full bg-white shadow-lg mt-4">
+          <table className="min-w-full bg-white shadow-lg mt-4 scroll-table">
             <thead>
               <tr className="text-gray bg-light">
                 <th className="px-6 py-4 text-left">Client Name</th>

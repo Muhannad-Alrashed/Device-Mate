@@ -88,6 +88,9 @@
     order: -1;
     gap: 4px;
   }
+  .dashboard-footer .logo {
+    width: 1px;
+  }
 }
 
 .dashboard-footer {
