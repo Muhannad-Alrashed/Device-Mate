@@ -170,10 +170,22 @@ export const WebSocketContextProvider = ({ children }) => {
         return connection ? connection.effectiveType : "Unknown";
     };
 
-    //----------------------------- Update Client Device Info ----------------------------------
+    //----------------------------- Handle Client Device Info ----------------------------------
 
-    // Send data
     useEffect(() => {
+        // Save data to database 
+        const saveClientDeviceInfo = async () => {
+            const clientId = sessionInfo.client_id;
+            try {
+                const response = await axios2.post(`/conn/save-device-info/${clientId}`, clientDeviceInfo);
+                console.log(response.data);
+            } catch (error) {
+                console.error(error.response ? error.response.data : error.message);
+            }
+        }
+        if (!currentUser && sessionInfo) saveClientDeviceInfo();
+
+        // Send data from client
         if (!currentUser) {
             if (connectionInfo.user.state) {
                 const sendDeviceInfo = () => {
@@ -184,28 +196,28 @@ export const WebSocketContextProvider = ({ children }) => {
                 };
                 const interval = setInterval(() => {
                     sendDeviceInfo();
-                }, 10000);
+                }, 60000);
                 return () => {
                     clearInterval(interval);
                 };
             }
         }
-    }, [clientDeviceInfo, connectionInfo, currentUser]);
+    }, [clientDeviceInfo, connectionInfo, currentUser, sessionInfo]);
 
-    // Receive data
+    // Receive data by technician
     useEffect(() => {
         if (currentUser) {
             const currentClientDevice = JSON.parse(localStorage.getItem("clientDevice"));
             if (currentClientDevice)
                 setClientDeviceInfo(currentClientDevice);
         }
-        const getClientDeviceInfo = (deviceInfo) => {
+        const receiveDeviceInfo = (deviceInfo) => {
             setClientDeviceInfo(deviceInfo);
             localStorage.setItem("clientDevice", JSON.stringify(deviceInfo));
         };
-        socket.on("get-client-device-info", getClientDeviceInfo);
+        socket.on("get-client-device-info", receiveDeviceInfo);
         return () => {
-            socket.off("get-client-device-info", getClientDeviceInfo);
+            socket.off("get-client-device-info", receiveDeviceInfo);
         };
     }, [currentUser]);
 
@@ -213,9 +225,8 @@ export const WebSocketContextProvider = ({ children }) => {
 
     // Start Session
     const startSession = async (conData) => {
-        const data = { ...conData, clientDeviceInfo }
         try {
-            const response = await axios2.post("/conn/start-session", data);
+            const response = await axios2.post("/conn/start-session", conData);
             console.log(response.data.message);
             setSessionInfo(response.data.result)
             return "";

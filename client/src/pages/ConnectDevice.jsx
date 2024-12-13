@@ -9,11 +9,16 @@ import ConfirmModal from "../components/ConfirmModal";
 import ConnectionStatus from "../components/ConnectionStatus";
 
 const ConnectDevice = () => {
-  const { socket, connectionInfo, setConnectionInfo, clientDeviceInfo } =
-    useContext(WebSocketContext);
   const { action, setAction, triggerAction } = useContext(UtilContext);
   const { downloadFile, getDateTime, generateConnectionCode } =
     useContext(UtilContext);
+  const {
+    socket,
+    connectionInfo,
+    setConnectionInfo,
+    clientDeviceInfo,
+    setSessionInfo,
+  } = useContext(WebSocketContext);
   const {
     isTransferring,
     setIsTransferring,
@@ -147,6 +152,7 @@ const ConnectDevice = () => {
           client: { code: "", state: false },
         });
         clearTransferData();
+        setSessionInfo(null);
       }
       setPopupData({
         title: "Success",
@@ -162,6 +168,7 @@ const ConnectDevice = () => {
         client: { code: "", state: false },
       });
       clearTransferData();
+      setSessionInfo(null);
     }
   };
 

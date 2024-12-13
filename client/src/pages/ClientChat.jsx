@@ -290,7 +290,7 @@ const ChatPage = () => {
           </button>
         </div>
       </div>
-      {chat && connectionInfo.user.state && connectionInfo.client.state ? (
+      {connectionInfo.user.state && connectionInfo.client.state ? (
         <div
           className="flex-1 flex flex-col gap-2 p-2"
           onMouseEnter={handleMouseEnter}
@@ -396,9 +396,7 @@ const ChatPage = () => {
           </div>
         </div>
       ) : (
-        <div className="flex-1 self-center text-center">
-          No Technician Connected
-        </div>
+        <div className="flex-1 self-center text-center">No Connection!!</div>
       )}
       {popupData && (
         <Popup

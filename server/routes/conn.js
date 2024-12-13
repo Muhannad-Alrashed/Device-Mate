@@ -59,13 +59,70 @@ router.get("/get-current/:code", (req, res) => {
     });
 });
 
+//---------------------- Save Client Device Info ----------------------
+
+router.post("/save-device-info/:id", (req, res) => {
+    const clientId = req.params.id;
+    const { Device_Type, Platform, Operating_System, Network_Type } = req.body;
+
+    const checkClientQuery = 'SELECT * FROM clients WHERE client_id = ?';
+
+    // Check if the client exists
+    db.query(checkClientQuery, [clientId], (err, clientData) => {
+        if (err) {
+            console.log(err.message);
+            return res.status(500).json(err.message);
+        }
+        if (clientData.length === 0) {
+            return res.status(404).json("Client does not exist.");
+        }
+
+        // Check if device info already exists
+        const checkDeviceInfoQuery = 'SELECT * FROM device_info WHERE client_id = ?';
+        db.query(checkDeviceInfoQuery, [clientId], (err, deviceData) => {
+            if (err) {
+                console.log(err.message);
+                return res.status(500).json(err.message);
+            }
+
+            if (deviceData.length === 0) {
+                // Insert new device info if none exists
+                const insertInfoQuery = `
+                    INSERT INTO device_info (device_type, platform, operating_system, network_type, client_id)
+                    VALUES (?, ?, ?, ?, ?);
+                `;
+                db.query(insertInfoQuery, [Device_Type, Platform, Operating_System, Network_Type, clientId], (err) => {
+                    if (err) {
+                        console.log(err.message);
+                        return res.status(500).json(err.message);
+                    }
+                    res.status(201).json("Client device info saved successfully.");
+                });
+            } else {
+                // Update existing device info
+                const deviceId = deviceData[0].device_id;
+                const updateInfoQuery = `
+                    UPDATE device_info SET device_type = ?, platform = ?, operating_system = ?, network_type = ?
+                    WHERE device_id = ?;
+                `;
+                db.query(updateInfoQuery, [Device_Type, Platform, Operating_System, Network_Type, deviceId], (err) => {
+                    if (err) {
+                        console.log(err.message);
+                        return res.status(500).json(err.message);
+                    }
+                    res.status(200).json("Client device info updated successfully.");
+                });
+            }
+        });
+    });
+});
+
 //---------------------- Start Session ----------------------
 
 router.post('/start-session', (req, res) => {
     const {
         user: { code: userCode, state: userState, id: userId },
         client: { code: clientCode, state: clientState, name: clientName },
-        clientDeviceInfo: { Device_Type, Platform, Operating_System, Network_Type },
     } = req.body;
     if (!clientName) {
         // Open existing session
@@ -124,27 +181,17 @@ router.post('/start-session', (req, res) => {
                         return res.status(500).json(err.message);
                     }
                     const sessionId = result.insertId;
-                    // Save device info
-                    const query = `INSERT INTO device_info
-                    (device_type,platform,operating_system,network_type,client_id)
-                    VALUES (?, ?, ?, ?, ?);`
-                    db.query(query, [Device_Type, Platform, Operating_System, Network_Type, clientId], (err) => {
+                    // Retrieve session
+                    const getSessionQuery = `SELECT clients.client_name,sessions.*
+                                                FROM sessions INNER JOIN clients ON sessions.client_id = clients.client_id
+                                                WHERE session_connection_code = ?`;
+                    db.query(getSessionQuery, [sessionId], (err, sessionRecords) => {
                         if (err) {
                             console.log(err.message);
                             return res.status(500).json(err.message);
                         }
-                        // Retrieve session
-                        const getSessionQuery = `SELECT clients.client_name,sessions.*
-                                                FROM sessions INNER JOIN clients ON sessions.client_id = clients.client_id
-                                                WHERE session_connection_code = ?`;
-                        db.query(getSessionQuery, [sessionId], (err, sessionRecords) => {
-                            if (err) {
-                                console.log(err.message);
-                                return res.status(500).json(err.message);
-                            }
-                            return res.status(201).json({ message: 'Connection created successfully', result: sessionRecords[0] });
-                        })
-                    });
+                        return res.status(201).json({ message: 'Connection created successfully', result: sessionRecords[0] });
+                    })
                 });
             };
         });

@@ -211,12 +211,12 @@ const Session = () => {
 
   const [sessionDeleted, setSessionDeleted] = useState(false);
 
-  const deleteSession = async () => {
+  const deleteSession = () => {
     setModalMessage("Are you sure you want to delete this session?");
     setIsModalOpen(true);
   };
 
-  // Handle delete file
+  // Handle delete session
   const handleDeleteSession = async () => {
     setIsModalOpen(false);
     const clientId = sessionDetails.client_id;
@@ -226,8 +226,7 @@ const Session = () => {
       );
       setSessionDeleted(true);
       // End connection if current session deleted
-      // eslint-disable-next-line eqeqeq
-      if (sessionInfo.session_id == sessionId) {
+      if (Number(sessionInfo?.session_id) === Number(sessionId)) {
         killConnection();
         clearTransferData();
       }

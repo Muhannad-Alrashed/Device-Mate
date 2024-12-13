@@ -4,9 +4,15 @@ import Loading from "./Loading";
 const ConfirmModal = ({ isOpen, message, onConfirm, onCancel }) => {
   const [disabled, setDisabled] = useState(false);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     setDisabled(true);
-    onConfirm();
+    try {
+      await onConfirm();
+    } catch (error) {
+      console.error("Confirmation Error:", error);
+    } finally {
+      setDisabled(false);
+    }
   };
 
   if (!isOpen) return null;
