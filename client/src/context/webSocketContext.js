@@ -172,39 +172,37 @@ export const WebSocketContextProvider = ({ children }) => {
 
     //----------------------------- Handle Client Device Info ----------------------------------
 
-    useEffect(() => {
-        // Save data to database 
-        const saveClientDeviceInfo = async () => {
-            const clientId = sessionInfo.client_id;
-            try {
-                const response = await axios2.post(`/conn/save-device-info/${clientId}`, clientDeviceInfo);
-                console.log(response.data);
-            } catch (error) {
-                console.error(error.response ? error.response.data : error.message);
-            }
+    // Save data to database when connected
+    const saveClientDeviceInfo = async () => {
+        const clientId = sessionInfo.client_id;
+        try {
+            const response = await axios2.post(`/conn/save-device-info/${clientId}`, clientDeviceInfo);
+            console.log(response.data);
+        } catch (error) {
+            console.error(error.response ? error.response.data : error.message);
         }
-        if (!currentUser && sessionInfo) saveClientDeviceInfo();
+    }
+    if (!currentUser && sessionInfo) saveClientDeviceInfo();
 
-        // Send data from client
-        if (!currentUser) {
-            if (connectionInfo.user.state) {
-                const sendDeviceInfo = () => {
-                    socket.emit("send-client-device-info", {
-                        device_info: clientDeviceInfo,
-                        receiver_code: connectionInfo.user.code,
-                    });
-                };
-                const interval = setInterval(() => {
-                    sendDeviceInfo();
-                }, 60000);
-                return () => {
-                    clearInterval(interval);
-                };
+    // Update and send data from client
+    useEffect(() => {
+        const sendDeviceInfo = () => {
+            socket.emit("send-client-device-info", {
+                device_info: clientDeviceInfo,
+                receiver_code: connectionInfo.user.code,
+            });
+        };
+        const interval = setInterval(() => {
+            if (!currentUser && !connectionInfo.user.state) {
+                sendDeviceInfo();
             }
-        }
+        }, 60000);
+        return () => {
+            clearInterval(interval);
+        };
     }, [clientDeviceInfo, connectionInfo, currentUser, sessionInfo]);
 
-    // Receive data by technician
+    // Receive updated data by technician
     useEffect(() => {
         if (currentUser) {
             const currentClientDevice = JSON.parse(localStorage.getItem("clientDevice"));
@@ -292,7 +290,7 @@ export const WebSocketContextProvider = ({ children }) => {
             value={{
                 socket, connectionInfo, setConnectionInfo,
                 startSession, endSession, sessionInfo, setSessionInfo,
-                isCodeExists, isClientExists,
+                isCodeExists, isClientExists, saveClientDeviceInfo,
                 clientDeviceInfo, setClientDeviceInfo, userDeviceInfo, killConnection
             }}>
             {children}

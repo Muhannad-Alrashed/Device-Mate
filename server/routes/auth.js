@@ -49,7 +49,7 @@ router.post("/signup", (req, res) => {
 //---------------------- Login ----------------------
 
 router.post("/login", (req, res) => {
-    const q = "SELECT * FROM users WHERE username = ?";
+    const q = "SELECT * FROM users WHERE username = ? and active_state = 1";
     // Check username
     db.query(q, [req.body.username], (err, data) => {
         if (err) return res.status(500).json(err.message);

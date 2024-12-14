@@ -32,18 +32,16 @@ const DeleteAccount = () => {
         killConnection();
         clearTransferData();
       }
-      setTimeout(() => {
-        setIsDeleting(false);
-        setPopupData({
-          title: "Success",
-          description: "Account deleted successfully.",
-        });
-      }, 2000);
+      setPopupData({
+        title: "Success",
+        description: "Account deleted successfully.",
+      });
     } catch (error) {
       setError(
         "Failed to delete account. ",
         error.response ? error.response.data : error.message
       );
+    } finally {
       setIsDeleting(false);
     }
   };
@@ -96,17 +94,13 @@ const DeleteAccount = () => {
             onClick={deleteAccount}
             disabled={isDeleting}
             className={`danger-button w-full bg-red-300 ${
-              isDeleting && "opacity-50 cursor-not-allowed"
+              isDeleting && "opacity-50 cursor-not-allowed mb-6"
             }`}
           >
-            {isDeleting ? "Deleting..." : "Delete My Account"}
+            Delete My Account
           </button>
+          {isDeleting && <Loading label="Deleting account" />}
         </div>
-        {isDeleting && (
-          <div className="mt-4">
-            <Loading label={"Deleting Account"} />
-          </div>
-        )}
       </div>
       <ConfirmModal
         isOpen={isModalOpen}

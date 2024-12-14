@@ -187,8 +187,6 @@ const Session = () => {
         title: "Success",
         description: response.data,
       });
-      setTransferId(null);
-      setIsModalOpen(false);
       setTransferredFiles((prev) =>
         prev.filter((item) => item.transfer_id !== transferId)
       );
@@ -198,6 +196,7 @@ const Session = () => {
         title: "Error",
         description: "Deletion failed.",
       });
+    } finally {
       setTransferId(null);
       setIsModalOpen(false);
     }

@@ -316,13 +316,13 @@ const ChatPage = () => {
   //-------------------------------------------------------------------------
 
   return (
-    <div className="chat-box min-h-[82vh] sm:min-h-[86vh] max-h-[82vh] sm:max-h-[86vh]">
-      <div className="flex flex-1 overflow-hidden">
+    <div className="chat-box">
+      <div className="wrapper flex flex-1 overflow-hidden">
         {/* Sidebar for Devices */}
         <div className="flex max-w-[50%]">
           <div
             className={`${
-              isSidebarCollapsed ? "w-54px" : "w-300px"
+              isSidebarCollapsed ? "w-[54px]" : "w-[300px]"
             } transition-width duration-300 bg-light border-r border-white overflow-y-auto`}
           >
             <button

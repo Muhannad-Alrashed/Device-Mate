@@ -17,6 +17,7 @@ const ConnectDevice = () => {
     connectionInfo,
     setConnectionInfo,
     clientDeviceInfo,
+    saveClientDeviceInfo,
     setSessionInfo,
   } = useContext(WebSocketContext);
   const {
@@ -85,6 +86,7 @@ const ConnectDevice = () => {
             title: "Success",
             description: "Your devices is now connected.",
           });
+          saveClientDeviceInfo();
           socket.emit("send-client-device-info", {
             device_info: clientDeviceInfo,
             receiver_code: UserCode,

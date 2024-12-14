@@ -27,7 +27,7 @@
 
 /* -------------------------- Technician Chat ------------------------- */
 
-@media (max-width: 576px) {
+@media (max-width: 640px) {
   .chat-box .toggle {
     top: 124px !important;
   }
@@ -36,20 +36,19 @@
     align-self: end;
     padding: 0.4rem 1rem;
   }
-}
-
-.w-300px {
-  width: 300px;
-}
-
-.w-54px {
-  width: 54px;
+  .chat-box .wrapper {
+    height: calc(100vh - 145px) !important;
+  }
 }
 
 .chat-box {
   flex: 1;
   display: flex;
   background-color: var(--light-background);
+}
+
+.chat-box .wrapper {
+  height: calc(100vh - 100px);
 }
 
 .chat-box .toggle {

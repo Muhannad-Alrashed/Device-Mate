@@ -122,14 +122,16 @@ router.delete("/delete-account/:id", (req, res) => {
     const getUser = 'SELECT * FROM users WHERE user_id = ?';
     db.query(getUser, [userId], (err, data) => {
         if (err) {
+            console.log(err.message);
             return res.status(500).json(err.message);
         }
         if (data.length === 0) {
             return res.status(404).json("User data wasn't found.");
         }
-        const deleteUser = 'DELETE FROM users WHERE user_id = ?';
+        const deleteUser = 'UPDATE users SET active_state = 0 WHERE user_id = ?';
         db.query(deleteUser, [userId], (err) => {
             if (err) {
+                console.log(err.message);
                 return res.status(500).json(err.message);
             }
             return res.status(200).json("User account deleted successfully.");
