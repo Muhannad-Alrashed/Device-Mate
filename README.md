@@ -1,2 +1,2 @@
 # Website Application
-A React.js, Node.js, MySQL App for Chat and File Transfer
+A Web app for chat and file transfer built using React.js, Node.js, and MySQL.
